@@ -1,0 +1,11 @@
+{
+  "name": "fps.UI",
+  "references": [
+    "fps.Game",
+    "fps.Gameplay",
+    "fps.AI",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}

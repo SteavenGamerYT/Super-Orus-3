@@ -1,0 +1,6 @@
+{
+  "name": "fps.Gameplay",
+  "references": ["fps.Game"],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}
