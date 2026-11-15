@@ -322,3 +322,4 @@ namespace Unity.FPS.Editor
         }
     }
 }
+
