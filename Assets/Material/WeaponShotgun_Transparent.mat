@@ -17,7 +17,6 @@ Material:
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OCCLUSIONMAP
-  - _SPECULARHIGHLIGHTS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
@@ -110,17 +109,17 @@ Material:
     - _DstBlendAlpha: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0
-    - _GlossyReflections: 0
+    - _Glossiness: 0.9
+    - _GlossyReflections: 1
     - _Metallic: 0.26199996
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.9
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 0
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 1
