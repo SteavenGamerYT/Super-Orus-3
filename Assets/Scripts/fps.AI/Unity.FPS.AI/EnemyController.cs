@@ -156,9 +156,9 @@ namespace Unity.FPS.AI
 
 		private void Start()
 		{
-			m_EnemyManager = UnityEngine.Object.FindObjectOfType<EnemyManager>();
+			m_EnemyManager = UnityEngine.Object.FindAnyObjectByType<EnemyManager>();
 			DebugUtility.HandleErrorIfNullFindObject<EnemyManager, EnemyController>(m_EnemyManager, this);
-			m_ActorsManager = UnityEngine.Object.FindObjectOfType<ActorsManager>();
+			m_ActorsManager = UnityEngine.Object.FindAnyObjectByType<ActorsManager>();
 			DebugUtility.HandleErrorIfNullFindObject<ActorsManager, EnemyController>(m_ActorsManager, this);
 			m_EnemyManager.RegisterEnemy(this);
 			m_Health = GetComponent<Health>();
@@ -174,7 +174,7 @@ namespace Unity.FPS.AI
 				}
 			}
 			m_SelfColliders = GetComponentsInChildren<Collider>();
-			m_GameFlowManager = UnityEngine.Object.FindObjectOfType<GameFlowManager>();
+			m_GameFlowManager = UnityEngine.Object.FindAnyObjectByType<GameFlowManager>();
 			DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, EnemyController>(m_GameFlowManager, this);
 			Health health = m_Health;
 			health.OnDie = (UnityAction)Delegate.Combine(health.OnDie, new UnityAction(OnDie));

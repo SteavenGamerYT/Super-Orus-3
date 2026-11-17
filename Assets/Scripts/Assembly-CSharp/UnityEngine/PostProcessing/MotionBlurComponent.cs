@@ -344,7 +344,7 @@ namespace UnityEngine.PostProcessing
 			get
 			{
 				MotionBlurModel.Settings settings = base.model.settings;
-				if (base.model.enabled && ((settings.shutterAngle > 0f && reconstructionFilter.IsSupported()) || settings.frameBlending > 0f) && SystemInfo.graphicsDeviceType != GraphicsDeviceType.OpenGLES2)
+				if (base.model.enabled && ((settings.shutterAngle > 0f && reconstructionFilter.IsSupported()) || settings.frameBlending > 0f))
 				{
 					return !context.interrupted;
 				}

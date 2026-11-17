@@ -11,7 +11,7 @@ namespace Unity.FPS.Gameplay
 
 		private void Awake()
 		{
-			m_PlayerCharacterController = Object.FindObjectOfType<PlayerCharacterController>();
+			m_PlayerCharacterController = Object.FindAnyObjectByType<PlayerCharacterController>();
 			DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, TeleportPlayer>(m_PlayerCharacterController, this);
 		}
 

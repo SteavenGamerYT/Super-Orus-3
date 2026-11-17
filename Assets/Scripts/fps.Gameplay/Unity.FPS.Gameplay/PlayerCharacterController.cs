@@ -122,8 +122,6 @@ namespace Unity.FPS.Gameplay
 
 		private Vector3 m_GroundNormal;
 
-		private Vector3 m_CharacterVelocity;
-
 		private Vector3 m_LatestImpactSpeed;
 
 		private float m_LastTimeJumped;
@@ -162,7 +160,7 @@ namespace Unity.FPS.Gameplay
 
 		private void Awake()
 		{
-			ActorsManager actorsManager = UnityEngine.Object.FindObjectOfType<ActorsManager>();
+			ActorsManager actorsManager = UnityEngine.Object.FindAnyObjectByType<ActorsManager>();
 			if (actorsManager != null)
 			{
 				actorsManager.SetPlayer(gameObject);

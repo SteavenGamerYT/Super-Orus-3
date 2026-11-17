@@ -44,7 +44,7 @@ namespace Unity.FPS.AI
 
 		protected virtual void Start()
 		{
-			m_ActorsManager = Object.FindObjectOfType<ActorsManager>();
+			m_ActorsManager = Object.FindAnyObjectByType<ActorsManager>();
 			DebugUtility.HandleErrorIfNullFindObject<ActorsManager, DetectionModule>(m_ActorsManager, this);
 		}
 

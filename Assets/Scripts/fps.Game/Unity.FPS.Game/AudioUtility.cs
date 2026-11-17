@@ -39,7 +39,7 @@ namespace Unity.FPS.Game
 		{
 			if (s_AudioManager == null)
 			{
-				s_AudioManager = Object.FindObjectOfType<AudioManager>();
+				s_AudioManager = Object.FindAnyObjectByType<AudioManager>();
 			}
 			AudioMixerGroup[] array = s_AudioManager.FindMatchingGroups(group.ToString());
 			if (array.Length != 0)
@@ -54,7 +54,7 @@ namespace Unity.FPS.Game
 		{
 			if (s_AudioManager == null)
 			{
-				s_AudioManager = Object.FindObjectOfType<AudioManager>();
+				s_AudioManager = Object.FindAnyObjectByType<AudioManager>();
 			}
 			if (value <= 0f)
 			{
@@ -68,7 +68,7 @@ namespace Unity.FPS.Game
 		{
 			if (s_AudioManager == null)
 			{
-				s_AudioManager = Object.FindObjectOfType<AudioManager>();
+				s_AudioManager = Object.FindAnyObjectByType<AudioManager>();
 			}
 			s_AudioManager.GetFloat("MasterVolume", out var value);
 			return Mathf.Pow(10f, value / 20f);

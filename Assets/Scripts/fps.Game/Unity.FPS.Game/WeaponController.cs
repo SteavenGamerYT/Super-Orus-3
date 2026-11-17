@@ -423,6 +423,10 @@ namespace Unity.FPS.Game
 				{
 					gameObject.transform.SetParent(null);
 				}
+				else
+				{
+					gameObject.layer = WeaponMuzzle.gameObject.layer;
+				}
 				UnityEngine.Object.Destroy(gameObject, 2f);
 			}
 			if (HasPhysicalBullets)

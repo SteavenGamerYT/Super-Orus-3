@@ -91,11 +91,11 @@ namespace UnityEngine.PostProcessing
 			PoissonBlur = 8
 		}
 
-		private bool k_HighlightSuppression;
+		private bool k_HighlightSuppression = false;
 
 		private bool k_TraceBehindObjects = true;
 
-		private bool k_TreatBackfaceHitAsMiss;
+		private bool k_TreatBackfaceHitAsMiss = false;
 
 		private bool k_BilateralUpsample = true;
 

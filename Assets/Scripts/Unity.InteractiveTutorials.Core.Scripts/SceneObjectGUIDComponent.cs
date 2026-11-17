@@ -25,7 +25,7 @@ public class SceneObjectGUIDComponent : MonoBehaviour
 		{
 			m_Id = Guid.NewGuid().ToString();
 		}
-		else if (UnityEngine.Object.FindObjectsOfType<SceneObjectGUIDComponent>().Any((SceneObjectGUIDComponent c) => c.m_Id == m_Id && c != this))
+		else if (UnityEngine.Object.FindObjectsByType<SceneObjectGUIDComponent>().Any((SceneObjectGUIDComponent c) => c.m_Id == m_Id && c != this))
 		{
 			m_Id = Guid.NewGuid().ToString();
 		}

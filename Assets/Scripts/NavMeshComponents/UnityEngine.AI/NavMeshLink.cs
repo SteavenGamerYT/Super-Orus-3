@@ -147,7 +147,7 @@ namespace UnityEngine.AI
 		private void OnEnable()
 		{
 			AddLink();
-			if (m_AutoUpdatePosition && m_LinkInstance.valid)
+			if (m_AutoUpdatePosition && NavMesh.IsLinkValid(m_LinkInstance))
 			{
 				AddTracking(this);
 			}
@@ -156,12 +156,12 @@ namespace UnityEngine.AI
 		private void OnDisable()
 		{
 			RemoveTracking(this);
-			m_LinkInstance.Remove();
+			NavMesh.RemoveLink(m_LinkInstance);
 		}
 
 		public void UpdateLink()
 		{
-			m_LinkInstance.Remove();
+			NavMesh.RemoveLink(m_LinkInstance);
 			AddLink();
 		}
 
@@ -211,9 +211,9 @@ namespace UnityEngine.AI
 				area = m_Area,
 				agentTypeID = m_AgentTypeID
 			}, transform.position, transform.rotation);
-			if (m_LinkInstance.valid)
+			if (NavMesh.IsLinkValid(m_LinkInstance))
 			{
-				m_LinkInstance.owner = this;
+				NavMesh.SetLinkOwner(m_LinkInstance, this);
 			}
 			m_LastPosition = transform.position;
 			m_LastRotation = transform.rotation;

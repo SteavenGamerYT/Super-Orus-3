@@ -31,7 +31,7 @@ namespace UnityEngine.PostProcessing
 
 		private PostProcessingProfile m_PreviousProfile;
 
-		private bool m_RenderingInSceneView;
+		private bool m_RenderingInSceneView = false;
 
 		private BuiltinDebugViewsComponent m_DebugViews;
 

@@ -144,7 +144,9 @@ namespace Unity.FPS.Editor
 
             Texture metallicGlossMap = mat.HasProperty("_MetallicGlossMap") ? mat.GetTexture("_MetallicGlossMap") : null;
             float metallic = mat.HasProperty("_Metallic") ? mat.GetFloat("_Metallic") : 0f;
-            float glossiness = mat.HasProperty("_Glossiness") ? mat.GetFloat("_Glossiness") : 0.5f;
+            float glossiness = (metallicGlossMap != null && mat.HasProperty("_GlossMapScale"))
+                ? mat.GetFloat("_GlossMapScale")
+                : (mat.HasProperty("_Glossiness") ? mat.GetFloat("_Glossiness") : 0.5f);
 
             Texture occlusionMap = mat.HasProperty("_OcclusionMap") ? mat.GetTexture("_OcclusionMap") : null;
             float occlusionStrength = mat.HasProperty("_OcclusionStrength") ? mat.GetFloat("_OcclusionStrength") : 1f;
@@ -194,6 +196,7 @@ namespace Unity.FPS.Editor
             {
                 if (mat.HasProperty("_EmissionMap")) mat.SetTexture("_EmissionMap", emissionMap);
                 if (mat.HasProperty("_EmissionColor")) mat.SetColor("_EmissionColor", emissionColor);
+                mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.BakedEmissive;
                 mat.EnableKeyword("_EMISSION");
             }
 
@@ -220,11 +223,33 @@ namespace Unity.FPS.Editor
         {
             Texture mainTex = mat.HasProperty("_MainTex") ? mat.GetTexture("_MainTex") : null;
             Color color = mat.HasProperty("_Color") ? mat.GetColor("_Color") : Color.white;
+            float mode = mat.HasProperty("_Mode") ? mat.GetFloat("_Mode") : 0f;
 
             mat.shader = urpParticles;
 
             if (mat.HasProperty("_BaseMap")) mat.SetTexture("_BaseMap", mainTex);
             if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
+
+            if (mode == 1f) // Cutout
+            {
+                if (mat.HasProperty("_Surface")) mat.SetFloat("_Surface", 0f);
+                if (mat.HasProperty("_AlphaClip")) mat.SetFloat("_AlphaClip", 1f);
+                mat.EnableKeyword("_ALPHATEST_ON");
+                mat.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                mat.renderQueue = (int)RenderQueue.AlphaTest;
+            }
+            else if (mode >= 2f) // Fade (2), Premultiply (3), Additive (4)
+            {
+                if (mat.HasProperty("_Surface")) mat.SetFloat("_Surface", 1f);
+                bool additive = (mode == 4f);
+                if (mat.HasProperty("_Blend")) mat.SetFloat("_Blend", additive ? 1f : 0f);
+                mat.SetInt("_SrcBlend", (int)(mode == 3f ? BlendMode.One : BlendMode.SrcAlpha));
+                mat.SetInt("_DstBlend", (int)(additive ? BlendMode.One : BlendMode.OneMinusSrcAlpha));
+                mat.SetInt("_ZWrite", 0);
+                mat.SetShaderPassEnabled("DepthOnly", false);
+                mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                mat.renderQueue = (int)RenderQueue.Transparent;
+            }
         }
 
         private static void UpgradeUnlitMaterialToUrp(Material mat, Shader urpUnlit)
@@ -259,7 +284,7 @@ namespace Unity.FPS.Editor
                 Camera mainCam = null;
                 Camera weaponCam = null;
 
-                foreach (Camera cam in UnityEngine.Object.FindObjectsOfType<Camera>(true))
+                foreach (Camera cam in UnityEngine.Object.FindObjectsByType<Camera>(FindObjectsInactive.Include))
                 {
                     if (cam.name.Contains("PlayerCamera") || cam.name.Contains("Main Camera") || cam.CompareTag("MainCamera"))
                     {
@@ -313,12 +338,7 @@ namespace Unity.FPS.Editor
 
         private static Type FindType(string fullName)
         {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                Type type = assembly.GetType(fullName);
-                if (type != null) return type;
-            }
-            return null;
+            return Type.GetType($"{fullName}, Unity.RenderPipelines.Universal.Runtime");
         }
     }
 }
