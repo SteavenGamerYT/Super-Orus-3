@@ -790,12 +790,12 @@ PlayerSettings:
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
-  cloudProjectId: 
+  cloudProjectId: afeff550-8043-4b85-b9bf-7a6f23b069f2
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames:
   - Default
-  projectName: 
-  organizationId: 
+  projectName: Super-Orus-3
+  organizationId: omartube706
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
